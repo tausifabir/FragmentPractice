@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +23,9 @@ import com.example.fragmentpractice.R;
  */
 public class BlankFragment extends Fragment {
 
-    private TextView authorTV,titleTV,helloTV;
+    private TextView authorTV, titleTV, helloTV;
     private Button clickBTN;
+
 
     public BlankFragment() {
         // Required empty public constructor
@@ -49,10 +52,22 @@ public class BlankFragment extends Fragment {
         clickBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "clicked", Toast.LENGTH_SHORT).show();
+
+                BlankFragment2 blankFragment2 = new BlankFragment2();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.fragmentContainer,blankFragment2);
+                ft.addToBackStack(null);
+                ft.commit();
+
             }
         });
     }
 
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+
+    }
 }
